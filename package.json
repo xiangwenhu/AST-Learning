@@ -1,0 +1,24 @@
+{
+  "name": "ast-learning",
+  "version": "1.0.0",
+  "description": "一起学习 AST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiangwenhu/AST-Learning.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiangwenhu/AST-Learning/issues"
+  },
+  "homepage": "https://github.com/xiangwenhu/AST-Learning#readme",
+  "devDependencies": {
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  }
+}
