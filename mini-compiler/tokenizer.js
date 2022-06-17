@@ -4,9 +4,12 @@ const PUNCTUATOR_FOUR = ['>>>='];
 // 三位符号
 const PUNCTUATOR_THREE = ['===', '!==', '>>>', '<<=', '>>=', '**='];
 // 两位符号
-const PUNCTUATOR_TWO = ['===', '!==', '>>>', '<<=', '>>=', '**='];
+const PUNCTUATOR_TWO = ['&&', '||', '??', '==', '!=', '+=', '-=', '*=', '/=', '++',
+    '--', '<<', '>>', '&=', '|=', '^=', '%=', '<=', '>=', '=>', '**'];
 // 一位符号
-const PUNCTUATOR_ONE = '({.}?);,[]:~<>=!+-*%&|^/';
+const PUNCTUATOR_ONE = '({.}?);,[]:~';
+// 一位符号
+const PUNCTUATOR_ONE_2 = '<>=!+-*%&|^/';
 
 // 正则 空白
 const REG_WHITESPACE = /\s/;
@@ -57,7 +60,7 @@ function isIdentifierPart(cp) {
 
 /**
  * code 转为 Token
- * supported type: Boolean Identifier Keyword Null Numeric Punctuator String
+ * supported type:  Identifier Keyword Punctuator String  Boolean Null Numeric 
  * not supported type: RegularExpression Template
  * @param {String} code 源码
  */
@@ -74,6 +77,7 @@ function tokenizer(code) {
         // 处理符号, 未处理ES6+的 ?? ?. ...等
         {
             let pun;
+            // 单位
             if (PUNCTUATOR_ONE.indexOf(ch) >= 0) {
                 tokens.push({
                     type: 'Punctuator',
@@ -82,7 +86,8 @@ function tokenizer(code) {
                 index++;
                 continue;
             }
-            pun = code.slice(index, 4);
+            // 4位
+            pun = code.substring(index, index + 4);
             if (PUNCTUATOR_FOUR.indexOf(pun) >= 0) {
                 tokens.push({
                     type: 'Punctuator',
@@ -91,7 +96,8 @@ function tokenizer(code) {
                 index += 4;
                 continue;
             }
-            pun = code.slice(index, 3);
+            // 3位
+            pun = code.substring(index, index + 3);
             if (PUNCTUATOR_THREE.indexOf(pun) >= 0) {
                 tokens.push({
                     type: 'Punctuator',
@@ -100,13 +106,24 @@ function tokenizer(code) {
                 index += 3;
                 continue;
             }
-            pun = code.slice(index, 2);
-            if (PUNCTUATOR_TWO.indexOf(ch) >= 0) {
+            // 2位
+            pun = code.substring(index, index + 2);
+            if (PUNCTUATOR_TWO.indexOf(pun) >= 0) {
                 tokens.push({
                     type: 'Punctuator',
                     value: pun
                 });
                 index += 2;
+                continue;
+            }
+
+            // 优先判断  *= /= ==等等
+            if(PUNCTUATOR_ONE_2.indexOf(ch)>=0){
+                tokens.push({
+                    type: 'Punctuator',
+                    value: ch
+                });
+                index++;
                 continue;
             }
         }
@@ -211,6 +228,6 @@ function tokenizer(code) {
 //     }
 // `);
 const tokens = tokenizer(`
-    var num1 = 1 + 2; 
+num += 3
 `);
 console.log("tokens:", tokens);

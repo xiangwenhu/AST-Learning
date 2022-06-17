@@ -166,18 +166,18 @@ export class Scanner {
                 break;
             default:
                 // 4-character punctuator.
-                str = this.source.substring(this.index, 4);
+                str = this.source.substr(this.index, 4);
                 if (str === '>>>=') {
                     this.index += 4;
                 } else {
                     // 3-character punctuators.
-                    str = str.substring(0, 3);
+                    str = str.substr(0, 3);
                     if (str === '===' || str === '!==' || str === '>>>' ||
                         str === '<<=' || str === '>>=' || str === '**=') {
                         this.index += 3;
                     } else {
                         // 2-character punctuators.
-                        str = str.substring(0, 2);
+                        str = str.substr(0, 2);
                         if (['&&', '||', '??', '==', '!=', '+=', '-=', '*=', '/=', '++',
                             '--', '<<', '>>', '&=', '|=', '^=', '%=', '<=', '>=', '=>', '**'].indexOf(str) >= 0) {
                             this.index += 2;

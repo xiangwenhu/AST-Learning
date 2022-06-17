@@ -1,5 +1,34 @@
 
 
+/**
+ * Tokens 转为 AST
+ * @param {Array} tokens 
+ * 标准：https://github.com/estree/estree/blob/master/es5.md
+ * 在线转换：https://esprima.org/demo/parse.html
+ * 
+ */
+
+
+// 二元操作符 
+// https://github.com/estree/estree/blob/master/es5.md#binaryoperator
+const BINARY_OPERATOR = [
+    "==", "!=", "===", "!=="
+    , "<", "<=", ">", ">="
+    , "<<", ">>", ">>>"
+    , "+", "-", "*", "/", "%"
+    , "|", "^", "&", "in"
+    , "instanceof"
+]
+
+// 赋值表达式
+// https://github.com/estree/estree/blob/master/es5.md#assignmentoperator
+const ASSIGNMENT_OPERATOR = [
+    "=" , "+=" , "-=" , "*=" , "/=" , "%="
+    , "<<=" , ">>=" , ">>>="
+    , "|=" , "^=" , "&="
+]
+
+
 function parse(tokens) {
     let index = 0;
 
@@ -7,9 +36,81 @@ function parse(tokens) {
         const token = tokens[index];
         const nextToken = tokens[index + 1];
 
-        if(token.type === 'Identifier'){
-            
+        // 标志符
+        // https://github.com/estree/estree/blob/master/es5.md#identifier
+        {
+            if (token.type === 'Identifier') {
+                index++;
+                return {
+                    type: "Identifier",
+                    value: token.value
+                }
+            }
         }
+
+        // 字面量
+        // https://github.com/estree/estree/blob/master/es5.md#literal
+        {
+
+            if (token.type === 'Boolean') {
+                index++;
+                return {
+                    type: "Literal",
+                    value: !!token.value,
+                    raw: token.value
+                }
+            }
+            if (token.type === 'Null') {
+                index++;
+                return {
+                    type: "Literal",
+                    value: null,
+                    raw: token.value
+                }
+            }
+            if (token.type === 'Numeric') {
+                index++;
+                return {
+                    type: "Literal",
+                    value: Number(token.value),
+                    raw: token.value
+                }
+            }
+            if (token.type === 'String') {
+                index++;
+                return {
+                    type: "Literal",
+                    value: token.value,
+                    raw: token.value
+                }
+            }
+        }
+
+
+        // 符号
+        {
+            if (token.type === 'Punctuator') {
+                index++;
+                // 加减乘除二元表达式
+                // https://github.com/estree/estree/blob/master/es5.md#binaryexpression
+                if (BINARY_OPERATOR.indexOf(token.value) >= 0) {
+                    return {
+                        type: 'BinaryExpression',
+                        operator: token.value,
+                        left: undefined,
+                        right: undefined
+                    }
+                }
+
+                // 赋值表达式 
+                // https://github.com/estree/estree/blob/master/es5.md#assignmentexpression
+
+
+            }
+        }
+
+        // 关键字
+
 
     }
 
