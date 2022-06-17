@@ -201,13 +201,16 @@ function tokenizer(code) {
     return tokens;
 }
 
+// const tokens = tokenizer(`
+//     var num1 = 1 + 2; 
+//     var str = 'hello world';
+//     var bValue = false;
+//     var nullValue = null;
+//     function a(){
+//         console.log(1)
+//     }
+// `);
 const tokens = tokenizer(`
     var num1 = 1 + 2; 
-    var str = 'hello world';
-    var bValue = false;
-    var nullValue = null;
-    function a(){
-        console.log(1)
-    }
 `);
 console.log("tokens:", tokens);
