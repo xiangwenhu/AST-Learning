@@ -23,9 +23,9 @@ const BINARY_OPERATOR = [
 // 赋值表达式
 // https://github.com/estree/estree/blob/master/es5.md#assignmentoperator
 const ASSIGNMENT_OPERATOR = [
-    "=" , "+=" , "-=" , "*=" , "/=" , "%="
-    , "<<=" , ">>=" , ">>>="
-    , "|=" , "^=" , "&="
+    "=", "+=", "-=", "*=", "/=", "%="
+    , "<<=", ">>=", ">>>="
+    , "|=", "^=", "&="
 ]
 
 
@@ -104,14 +104,24 @@ function parse(tokens) {
 
                 // 赋值表达式 
                 // https://github.com/estree/estree/blob/master/es5.md#assignmentexpression
-
-
+                if (ASSIGNMENT_OPERATOR.indexOf(token.value) >= 0) {
+                    return {
+                        type: 'BinaryExpression',
+                        operator: token.value,
+                        left: undefined,
+                        right: undefined
+                    }
+                }
             }
         }
 
         // 关键字
+        {
+            if (token.type === 'Keyword') {
 
-
+            }
+        }
+        throw new TypeError("未知的Token类型:" + token.type);
     }
 
 }

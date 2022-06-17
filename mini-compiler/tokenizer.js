@@ -228,6 +228,6 @@ function tokenizer(code) {
 //     }
 // `);
 const tokens = tokenizer(`
-num += 3
+var num1 = 1 + 2;
 `);
 console.log("tokens:", tokens);
