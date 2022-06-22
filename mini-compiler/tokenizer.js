@@ -218,17 +218,17 @@ function tokenizer(code) {
     return tokens;
 }
 
-/*
+
 const tokens = tokenizer(`
     var num1 = 1 + false; 
     num1 = 'strNum1';
     function log(num){
         console.log(num)
     }
-   log();
+   log(num1);
 `);
-*/
-const tokens = tokenizer(`
-num1 = 'strNum1';
-`);
+
+// const tokens = tokenizer(`
+// num1 = 'strNum1';
+// `);
 console.log("tokens:", tokens);
