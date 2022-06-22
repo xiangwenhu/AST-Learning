@@ -1,0 +1,110 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "VariableDeclaration",
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "id": {
+              "type": "Identifier",
+              "name": "num1"
+            },
+            "init": {
+              "type": "BinaryExpression",
+              "operator": "+",
+              "left": {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+              },
+              "right": {
+                "type": "Literal",
+                "value": false,
+                "raw": "false"
+              }
+            }
+          }
+        ],
+        "kind": "var"
+      },
+      {
+        "type": "ExpressionStatement",
+        "expression": {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            "type": "Identifier",
+            "name": "num1"
+          },
+          "right": {
+            "type": "Literal",
+            "value": "strNum1",
+            "raw": "'strNum1'"
+          }
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "id": {
+          "type": "Identifier",
+          "name": "log"
+        },
+        "params": [
+          {
+            "type": "Identifier",
+            "name": "num"
+          }
+        ],
+        "body": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "computed": false,
+                  "object": {
+                    "type": "Identifier",
+                    "name": "console"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "log"
+                  }
+                },
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "name": "num"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "generator": false,
+        "expression": false,
+        "async": false
+      },
+      {
+        "type": "ExpressionStatement",
+        "expression": {
+          "type": "CallExpression",
+          "callee": {
+            "type": "Identifier",
+            "name": "log"
+          },
+          "arguments": [
+            {
+              "type": "Identifier",
+              "name": "num1"
+            }
+          ]
+        }
+      }
+    ],
+    "sourceType": "script"
+  }
